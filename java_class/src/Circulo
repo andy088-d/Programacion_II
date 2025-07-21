@@ -1,0 +1,60 @@
+class Circulo {
+    private double radio;
+
+    public Circulo() {
+        this.radio = 1.0;
+    }
+
+    public Circulo(double radio) {
+        setRadio(radio);
+    }
+
+    public double getRadio() {
+        return radio;
+    }
+
+    public void setRadio(double radio) {
+        if (radio > 0) {
+            this.radio = radio;
+        } else {
+            System.out.println("El radio debe ser mayor que cero. Se mantiene el valor anterior.");
+        }
+    }
+
+    // Método para calcular el área del círculo
+    public double calcularArea() {
+        return Math.PI * radio * radio;
+    }
+
+    // Método sobrecargado para calcular el área con parámetro
+    public double calcularArea(double nuevoRadio) {
+        if (nuevoRadio > 0) {
+            return Math.PI * nuevoRadio * nuevoRadio;
+        } else {
+            System.out.println("El radio debe ser mayor que cero.");
+            return 0;
+        }
+    }
+
+    // Método para calcular la circunferencia
+    public double calcularCircunferencia() {
+        return 2 * Math.PI * radio;
+    }
+
+    // Método principal para probar la clase
+    public static void main(String[] args) {
+        Circulo c1 = new Circulo(); // Usando constructor por defecto
+        Circulo c2 = new Circulo(5.0); // Usando constructor con parámetro
+
+        System.out.println("Círculo 1 - Radio: " + c1.getRadio());
+        System.out.println("Área: " + c1.calcularArea());
+        System.out.println("Circunferencia: " + c1.calcularCircunferencia());
+
+        System.out.println("\nCírculo 2 - Radio: " + c2.getRadio());
+        System.out.println("Área: " + c2.calcularArea());
+        System.out.println("Circunferencia: " + c2.calcularCircunferencia());
+
+        // Usando el método sobrecargado
+        System.out.println("\nÁrea con radio 3.5 (sin cambiar el atributo): " + c2.calcularArea(3.5));
+    }
+}
