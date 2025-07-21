@@ -1,0 +1,107 @@
+public class Electrodomestico {
+    // Atributos privados
+    private char consumoEnergetico; // A - F
+    private double precio;
+    private String color;
+    private double peso;
+
+    // Constructor por defecto
+    public Electrodomestico() {
+        this.consumoEnergetico = 'F';
+        this.precio = 100.0;
+        this.color = "Blanco";
+        this.peso = 5.0;
+    }
+
+    // Constructor con parámetros
+    public Electrodomestico(char consumoEnergetico, double precio, String color, double peso) {
+        setConsumoEnergetico(consumoEnergetico);
+        setPrecio(precio);
+        setColor(color);
+        setPeso(peso);
+    }
+
+    // Getters
+    public char getConsumoEnergetico() {
+        return consumoEnergetico;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    // Setters con validación
+    public void setConsumoEnergetico(char consumoEnergetico) {
+        consumoEnergetico = Character.toUpperCase(consumoEnergetico);
+        if (consumoEnergetico >= 'A' && consumoEnergetico <= 'F') {
+            this.consumoEnergetico = consumoEnergetico;
+        } else {
+            this.consumoEnergetico = 'F'; // por defecto
+        }
+    }
+
+    public void setPrecio(double precio) {
+        if (precio >= 0) {
+            this.precio = precio;
+        }
+    }
+
+    public void setColor(String color) {
+        if (color != null && !color.isEmpty()) {
+            this.color = color;
+        }
+    }
+
+    public void setPeso(double peso) {
+        if (peso >= 0) {
+            this.peso = peso;
+        }
+    }
+
+    // Método para calcular precio final
+    public double precioFinal() {
+        double precioFinal = this.precio;
+
+        // Consumo energético
+        switch (this.consumoEnergetico) {
+            case 'A': precioFinal += 100; break;
+            case 'B': precioFinal += 80; break;
+            case 'C': precioFinal += 60; break;
+            case 'D': precioFinal += 50; break;
+            case 'E': precioFinal += 30; break;
+            case 'F': precioFinal += 10; break;
+        }
+
+        // Peso
+        if (peso < 20) {
+            precioFinal += 10;
+        } else if (peso < 50) {
+            precioFinal += 50;
+        } else if (peso < 80) {
+            precioFinal += 80;
+        } else {
+            precioFinal += 100;
+        }
+
+        return precioFinal;
+    }
+
+    // Sobrecarga: aplicar descuento
+    public double precioFinal(double descuentoPorcentaje) {
+        double base = precioFinal();
+        if (descuentoPorcentaje >= 0 && descuentoPorcentaje <= 100) {
+            return base - (base * descuentoPorcentaje / 100);
+        } else {
+            System.out.println("Descuento inválido.");
+            return base;
+        }
+    }
+}
